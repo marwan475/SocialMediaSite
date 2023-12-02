@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import styled  from "styled-components";
 import Logo from "../assets/logo.svg";
 
+
 function Register() {
+
+    const [values, setValues] = useState({
+        username: "",
+        password: "",
+    });
 
     const handleSubmit = (event)=>{
         event.preventDefault();
@@ -11,7 +17,7 @@ function Register() {
     };
 
     const handleChange = (event)=> {
-
+        setValues({ ...values,[event.target.name]:event.target.value })
     };
 
     return( 
