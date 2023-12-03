@@ -8,20 +8,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 var db = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
     password: "root"
   });
   
+
 db.connect(function(err) {
     if (err) throw err;
     console.log("Db Connected!");
   });
 
+
 db.query(`USE Forms`, function (error, results) {
   if (error) console.log(error);
   });
+
 
 app.get('/db/init', (req, res) => {
 
@@ -43,38 +47,45 @@ app.get('/db/init', (req, res) => {
   
   });
   
-app.post("/api/auth/register",async (req, res, next) => {
+
+async function addUsertodb(username,password){
+  const hashedpass = await bcrypt.hash(password,10);
+
+  const insertQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
+
+  const values = [username,hashedpass];
+
+  db.query(insertQuery, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting user into the database: ' + err + insertQuery);
+    } else {
+      console.log('User added to the database')
+    }
+  });
+};
+
+  
+app.post("/api/auth/register",(req, res, next) => {
   const {username,password} = req.body;
   
-  var check = db.query("SELECT username FROM users WHERE username= ?", [username],function (error,result) {
+  db.query("SELECT username FROM users WHERE username= ?", [username],function (error,result) {
     if (error) console.log(error);
-    console.log(result);
-    if (result != []) {
+    console.log(result[0]);
+    if (result[0] != undefined) {
       res.json({ msg: 'Error Name Taken'});
-      return false;
-    }
-    return true;
+    }else addUsertodb(username,password);
     });
   
-  if (check == true){  
-    const hashedpass = await bcrypt.hash(password,10);
-
-    const insertQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
-
-    const values = [username,hashedpass];
-
-    db.query(insertQuery, values, (err, result) => {
-      if (err) {
-        console.error('Error inserting user into the database: ' + err + insertQuery);
-      } else {
-        console.log('User added to the database')
-      }
-  });
-}
 });
 
+
 app.post("/api/auth/login",(req, res, next) => {
-  console.log(req.body);
+  const {username,password} = req.body;
+  
+  db.query("SELECT password FROM users WHERE username= ?", [username],function (error,result) {
+    if (error) console.log(error);
+    console.log(result[0]);
+    });
 });
 
 
