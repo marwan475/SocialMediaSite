@@ -82,12 +82,10 @@ app.post("/api/auth/register",(req, res, next) => {
 });
 
 async function comparePass(password,hashedpass){
-  const rehash = await bcrypt.hash(password,10);
+  
+  const valid = await bcrypt.compare(password,hashedpass);
 
-  console.log(rehash);
-  console.log(hashedpass);
-
-  if (rehash == hashedpass) console.log("passwords match");
+  if (valid) console.log("passwords match");
 }
 
 app.post("/api/auth/login",(req, res, next) => {

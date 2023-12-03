@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled  from "styled-components";
 import Logo from "../assets/logo.svg";
 import axios from "axios";
@@ -46,6 +47,7 @@ function Login() {
                 onChange={(e)=>handleChange(e)}
                 />
                 <button type="submit">Login</button>
+                <span>Dont have an account? <br></br><Link to="/register">Register</Link></span>
             </form>
         </FormContainer>
     </>
