@@ -73,18 +73,30 @@ app.post("/api/auth/register",(req, res, next) => {
     console.log(result[0]);
     if (result[0] != undefined) {
       res.json({ msg: 'Error Name Taken'});
-    }else addUsertodb(username,password);
+    }else{ 
+      res.json({ msg: 'User Added'});
+      addUsertodb(username,password);
+    }
     });
   
 });
 
+async function comparePass(password,hashedpass){
+  const rehash = await bcrypt.hash(password,10);
+
+  console.log(rehash);
+  console.log(hashedpass);
+
+  if (rehash == hashedpass) console.log("passwords match");
+}
 
 app.post("/api/auth/login",(req, res, next) => {
   const {username,password} = req.body;
   
   db.query("SELECT password FROM users WHERE username= ?", [username],function (error,result) {
     if (error) console.log(error);
-    console.log(result[0]);
+    if (result[0] == undefined) res.json({ msg: 'Username dosent exist'});
+    else comparePass(password,result[0].password);
     });
 });
 

@@ -1,5 +1,7 @@
+/* eslint eqeqeq: 0 */
+
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled  from "styled-components";
 import Logo from "../assets/logo.svg";
 import axios from "axios";
@@ -7,6 +9,8 @@ import axios from "axios";
 
 
 function Register() {
+
+    const navigate = useNavigate();
 
     const [values, setValues] = useState({
         username: "",
@@ -20,7 +24,11 @@ function Register() {
             username,
             password,
         });
-        alert(data.msg);
+        if (data.msg == 'Error Name Taken') alert(data.msg);
+        else {
+            alert("User Created");
+            navigate("/");
+        }
         
     };
 

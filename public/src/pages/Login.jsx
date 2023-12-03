@@ -18,6 +18,7 @@ function Login() {
             username,
             password,
         });
+        alert(data.msg);
     };
 
     const handleChange = (event)=> {
