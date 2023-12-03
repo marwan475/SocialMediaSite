@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import styled  from "styled-components";
 import Logo from "../assets/logo.svg";
+import axios from "axios";
+import { registerRoute } from "../utils/APIRoutes";
 
 
 function Register() {
@@ -11,9 +13,13 @@ function Register() {
         password: "",
     });
 
-    const handleSubmit = (event)=>{
+    const handleSubmit = async (event)=>{
         event.preventDefault();
-        alert("form");
+        const { username, password } = values;
+        const { data } = await axios.post(registerRoute,{
+            username,
+            password,
+        });
     };
 
     const handleChange = (event)=> {
