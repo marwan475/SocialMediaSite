@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled  from "styled-components";
 import Logo from "../assets/logo.svg";
 import axios from "axios";
-import { registerRoute } from "../utils/APIRoutes";
+
 
 
 function Register() {
@@ -16,7 +16,7 @@ function Register() {
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const { username, password } = values;
-        const { data } = await axios.post(registerRoute,{
+        const { data } = await axios.post('http://localhost:8080/api/auth/register',{
             username,
             password,
         });
