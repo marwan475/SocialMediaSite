@@ -86,6 +86,8 @@ async function comparePass(password,hashedpass){
   const valid = await bcrypt.compare(password,hashedpass);
 
   if (valid) console.log("passwords match");
+
+  return valid;
 }
 
 app.post("/api/auth/login",(req, res, next) => {
@@ -94,7 +96,9 @@ app.post("/api/auth/login",(req, res, next) => {
   db.query("SELECT password FROM users WHERE username= ?", [username],function (error,result) {
     if (error) console.log(error);
     if (result[0] == undefined) res.json({ msg: 'Username dosent exist'});
-    else comparePass(password,result[0].password);
+    else {
+      if(comparePass(password,result[0].password))res.json({ msg: 'User Authed'});
+    }
     });
 });
 

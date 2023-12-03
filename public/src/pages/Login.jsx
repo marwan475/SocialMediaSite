@@ -7,6 +7,8 @@ import axios from "axios";
 
 function Login() {
 
+    const navigate = useNavigate();
+
     const [values, setValues] = useState({
         username: "",
         password: "",
@@ -19,7 +21,11 @@ function Login() {
             username,
             password,
         });
-        alert(data.msg);
+        if (data.msg == 'Username dosent exist') alert(data.msg);
+        else {
+            alert("User Authed");
+            navigate("/");
+        }
     };
 
     const handleChange = (event)=> {
