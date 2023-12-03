@@ -19,6 +19,10 @@ db.connect(function(err) {
     console.log("Db Connected!");
   });
 
+db.query(`USE Forms`, function (error, results) {
+  if (error) console.log(error);
+  });
+
 app.get('/db/init', (req, res) => {
 
   db.query(`CREATE DATABASE IF NOT EXISTS Forms`, function (error,result) {
@@ -41,25 +45,32 @@ app.get('/db/init', (req, res) => {
   
 app.post("/api/auth/register",async (req, res, next) => {
   const {username,password} = req.body;
-  db.query("SELECT username FROM users WHERE username= ?", [username],function (error,result) {
+  
+  var check = db.query("SELECT username FROM users WHERE username= ?", [username],function (error,result) {
     if (error) console.log(error);
     console.log(result);
-    if (result != []) return res.json({ msg: "Username already taken", status: false});
+    if (result != []) {
+      res.json({ msg: 'Error Name Taken'});
+      return false;
+    }
+    return true;
     });
   
-  const hashedpass = await bcrypt.hash(password,10);
+  if (check == true){  
+    const hashedpass = await bcrypt.hash(password,10);
 
-  const insertQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
+    const insertQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
 
-  const values = [username,hashedpass];
+    const values = [username,hashedpass];
 
-  db.query(insertQuery, values, (err, result) => {
-    if (err) {
-      console.error('Error inserting user into the database: ' + err + insertQuery);
-    } else {
-      console.log('User added to the database')
-    }
+    db.query(insertQuery, values, (err, result) => {
+      if (err) {
+        console.error('Error inserting user into the database: ' + err + insertQuery);
+      } else {
+        console.log('User added to the database')
+      }
   });
+}
 });
 
 app.post("/api/auth/login",(req, res, next) => {
