@@ -14,6 +14,12 @@ function Login() {
         password: "",
     });
 
+    useEffect(()=>{
+        if (localStorage.getItem("user")){
+            navigate("/");
+        }
+    })
+
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const { username, password } = values;
@@ -21,8 +27,9 @@ function Login() {
             username,
             password,
         });
-        if (data.msg == 'Username dosent exist') alert(data.msg);
+        if (data.msg != 'User Authed') alert(data.msg);
         else {
+            localStorage.setItem("user",JSON.stringify(data.user))
             alert("User Authed");
             navigate("/");
         }

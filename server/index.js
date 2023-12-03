@@ -90,14 +90,16 @@ async function comparePass(password,hashedpass){
   return valid;
 }
 
-app.post("/api/auth/login",(req, res, next) => {
+app.post("/api/auth/login",async (req, res, next) => {
   const {username,password} = req.body;
   
-  db.query("SELECT password FROM users WHERE username= ?", [username],function (error,result) {
+  db.query("SELECT password FROM users WHERE username= ?", [username],async function (error,result) {
     if (error) console.log(error);
     if (result[0] == undefined) res.json({ msg: 'Username dosent exist'});
     else {
-      if(comparePass(password,result[0].password))res.json({ msg: 'User Authed'});
+      const valid = await comparePass(password,result[0].password);
+      if(valid)res.json({ msg: 'User Authed', user:username});
+      else res.json({ msg: 'incorrect password'});
     }
     });
 });

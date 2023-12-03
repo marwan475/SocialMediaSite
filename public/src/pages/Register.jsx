@@ -17,6 +17,12 @@ function Register() {
         password: "",
     });
 
+    useEffect(()=>{
+        if (localStorage.getItem("user")){
+            navigate("/");
+        }
+    })
+
     const handleSubmit = async (event)=>{
         event.preventDefault();
         const { username, password } = values;
@@ -27,7 +33,7 @@ function Register() {
         if (data.msg == 'Error Name Taken') alert(data.msg);
         else {
             alert("User Created");
-            navigate("/");
+            navigate("/login");
         }
         
     };
