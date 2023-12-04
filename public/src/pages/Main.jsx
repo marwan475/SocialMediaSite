@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled  from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+
+
 
 function Main() {
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if (!localStorage.getItem("user")){
+            navigate("/login");
+        }
+    })
+
     return (
     <Container>
         <div className="container"></div>
