@@ -110,6 +110,25 @@ app.post("/api/auth/login",async (req, res) => {
 });
 
 
+app.post("/api/db/createchannel",(req, res) => {
+  const {question} = req.body;
+  
+  const insertQuery = 'INSERT INTO channels (question) VALUES (?)';
+
+  const values = [question];
+
+  db.query(insertQuery, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting user into the database: ' + err + insertQuery);
+      res.json({ msg: 'Error creating channel'});
+    } else {
+      console.log('channel added to the database')
+      res.json({ msg: 'channel created'});
+    }
+  });
+  
+});
+
 app.get("/api/db/channels", (req,res)=>{
 
   const selectQuery = 'SELECT * FROM channels';

@@ -15,7 +15,9 @@ function Main() {
 
     return (
     <Container>
-        <div className="container"></div>
+        <div className="container">
+        <span>create your own channel<br></br><Link to="/createchannel">Here</Link></span>
+        </div>
     </Container>);
    
 }
@@ -37,6 +39,9 @@ padding: 8%;
     display: grid;
     grid-template-columns: 25% 75%;
 
+}
+span {
+    text-align: center;
 }
 `;
 
