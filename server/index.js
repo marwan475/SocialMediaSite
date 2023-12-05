@@ -42,6 +42,11 @@ app.get('/db/init', (req, res) => {
     username TEXT,
     password TEXT)`, function (error,result) {
     });
+
+  db.query(`CREATE TABLE IF NOT EXISTS channels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT)`, function (error,result) {
+    });
   
   console.log("database initialized");
   
@@ -65,7 +70,7 @@ async function addUsertodb(username,password){
 };
 
   
-app.post("/api/auth/register",(req, res, next) => {
+app.post("/api/auth/register",(req, res) => {
   const {username,password} = req.body;
   
   db.query("SELECT username FROM users WHERE username= ?", [username],function (error,result) {
@@ -90,7 +95,7 @@ async function comparePass(password,hashedpass){
   return valid;
 }
 
-app.post("/api/auth/login",async (req, res, next) => {
+app.post("/api/auth/login",async (req, res) => {
   const {username,password} = req.body;
   
   db.query("SELECT password FROM users WHERE username= ?", [username],async function (error,result) {
@@ -102,6 +107,24 @@ app.post("/api/auth/login",async (req, res, next) => {
       else res.json({ msg: 'incorrect password'});
     }
     });
+});
+
+
+app.get("/api/db/channels", (req,res)=>{
+
+  const selectQuery = 'SELECT * FROM channels';
+
+  db.query(selectQuery, (err, results) => {
+    if (err) {
+      console.error('Error retrieving channnels from the database: ' + err);
+      res.status(500).json({ error: 'Error retrieving posts' });
+    } else {
+      console.log('Retrieved channels from the database');
+      console.log(JSON.stringify(results));
+      res.status(202).json({ results });
+      
+    }
+  });
 });
 
 

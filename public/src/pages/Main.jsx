@@ -3,7 +3,6 @@ import styled  from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
 
-
 function Main() {
 
     const navigate = useNavigate();
