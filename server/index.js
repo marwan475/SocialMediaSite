@@ -139,8 +139,8 @@ app.get("/api/db/channels", (req,res)=>{
       res.status(500).json({ error: 'Error retrieving posts' });
     } else {
       console.log('Retrieved channels from the database');
-      console.log(JSON.stringify(results));
-      res.status(202).json({ results });
+      console.log(JSON.parse(JSON.stringify(results)));
+      res.json({ data: JSON.parse(JSON.stringify(results)) });
       
     }
   });

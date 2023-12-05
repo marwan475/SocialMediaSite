@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
 import styled  from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 function Main() {
+
+    const [channels, setChannels] = useState([]);
 
     const navigate = useNavigate();
 
@@ -11,7 +14,16 @@ function Main() {
         if (!localStorage.getItem("user")){
             navigate("/login");
         }
-    })
+    });
+
+    const getChannels = async()=>{
+        const data = await axios.get('http://localhost:8080/api/db/channels');
+        setChannels(data.data);
+    };
+
+    useEffect(()=>{
+        getChannels();
+    });
 
     return (
     <Container>
