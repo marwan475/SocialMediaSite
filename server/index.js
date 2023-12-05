@@ -140,7 +140,7 @@ app.get("/api/db/channels", (req,res)=>{
     } else {
       console.log('Retrieved channels from the database');
       console.log(JSON.parse(JSON.stringify(results)));
-      res.json({ data: JSON.parse(JSON.stringify(results)) });
+      res.send(JSON.parse(JSON.stringify(results)));
       
     }
   });

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import styled  from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Channels from "../components/Channels";
 
 
 function Main() {
@@ -23,12 +24,12 @@ function Main() {
 
     useEffect(()=>{
         getChannels();
-    });
+    },[]);
 
     return (
     <Container>
         <div className="container">
-        <span>create your own channel<br></br><Link to="/createchannel">Here</Link></span>
+        <Channels channels={ channels}/>
         </div>
     </Container>);
    
