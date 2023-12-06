@@ -13,13 +13,15 @@ export default function Input({chan}){
 
         var msg = msgg;
         var index = chan;
+        var user = localStorage.getItem("user");
         
         const { data } = await axios.post('http://localhost:8080/api/db/addmsg',{
             index,
             msg,
+            user,
         });
 
-        
+        setmsg("");
         
     };
 

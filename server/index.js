@@ -48,9 +48,10 @@ app.get('/db/init', (req, res) => {
     question TEXT)`, function (error,result) {
     });
 
-    db.query(`CREATE TABLE IF NOT EXISTS msgss (
+    db.query(`CREATE TABLE IF NOT EXISTS msgsss (
       id INT AUTO_INCREMENT PRIMARY KEY,
       msg_index INT,
+      user TEXT,
       msg TEXT)`, function (error,result) {
       });
 
@@ -158,11 +159,11 @@ app.get("/api/db/channels", (req,res)=>{
 
 app.post("/api/db/addmsg", (req,res)=>{
 
-  const {index,msg} = req.body;
+  const {index,msg,user} = req.body;
 
-  const insertQuery = "INSERT INTO msgss (msg_index, msg) VALUES (?, ?)";
+  const insertQuery = "INSERT INTO msgsss (msg_index, user, msg) VALUES (?, ?, ?)";
 
-  const values = [index,msg];
+  const values = [index,user,msg];
 
   console.log(values);
 
@@ -179,7 +180,7 @@ app.post("/api/db/addmsg", (req,res)=>{
 app.post("/api/db/msgs", (req,res)=>{
   const {channel} = req.body;
 
-  const selectQuery = 'SELECT * FROM msgss WHERE index=?';
+  const selectQuery = 'SELECT * FROM msgsss WHERE msg_index=?';
 
   const values = [channel];
 
