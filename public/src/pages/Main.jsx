@@ -9,6 +9,8 @@ function Main() {
 
     const [channels, setChannels] = useState([]);
 
+    const [curChannel,setcurChannel] = useState(undefined);
+
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -26,10 +28,14 @@ function Main() {
         getChannels();
     },[]);
 
+    const handleChannelchange = (index) => {
+        setcurChannel(index);
+    }
+
     return (
     <Container>
         <div className="container">
-        <Channels channels={ channels}/>
+        <Channels channels={ channels} changeChannel={handleChannelchange}/>
         </div>
     </Container>);
    
