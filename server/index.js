@@ -136,9 +136,33 @@ app.get("/api/db/channels", (req,res)=>{
   db.query(selectQuery, (err, results) => {
     if (err) {
       console.error('Error retrieving channnels from the database: ' + err);
-      res.status(500).json({ error: 'Error retrieving posts' });
+      res.status(500).json({ error: 'Error retrieving channels' });
     } else {
       console.log('Retrieved channels from the database');
+      console.log(JSON.parse(JSON.stringify(results)));
+      res.send(JSON.parse(JSON.stringify(results)));
+      
+    }
+  });
+});
+
+
+app.post("/api/db/channel", (req,res)=>{
+
+  const {channel} = req.body;
+
+  const selectQuery = 'SELECT question FROM channels WHERE id=?';
+
+  const values = [channel];
+
+  console.log(channel);
+
+  db.query(selectQuery, values, (err, results) => {
+    if (err) {
+      console.error('Error retrieving channel from the database: ' + err);
+      res.status(500).json({ error: 'Error retrieving channel' });
+    } else {
+      console.log('Retrieved channel from the database');
       console.log(JSON.parse(JSON.stringify(results)));
       res.send(JSON.parse(JSON.stringify(results)));
       

@@ -3,6 +3,8 @@ import styled  from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Channels from "../components/Channels";
+import Channel from "../components/Channel";
+import Welcome from "../components/Welcome";
 
 
 function Main() {
@@ -36,6 +38,12 @@ function Main() {
     <Container>
         <div className="container">
         <Channels channels={ channels} changeChannel={handleChannelchange}/>
+        {
+            curChannel === undefined ?
+            <Welcome user={localStorage.getItem("user")}/>:
+            <Channel channel={curChannel}/>
+        }
+        
         </div>
     </Container>);
    
