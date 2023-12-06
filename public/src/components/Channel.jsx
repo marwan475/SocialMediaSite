@@ -27,7 +27,7 @@ export default function Channel({channel}){
                 <h3>{chan}</h3>
             </div>
             <Msg/>
-            <Input handlesub={handlesub}/>
+            <Input chan={channel}/>
         </Container3>
     );
 }

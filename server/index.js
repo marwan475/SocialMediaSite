@@ -47,6 +47,13 @@ app.get('/db/init', (req, res) => {
     id INT AUTO_INCREMENT PRIMARY KEY,
     question TEXT)`, function (error,result) {
     });
+
+    db.query(`CREATE TABLE IF NOT EXISTS msgss (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      msg_index INT,
+      msg TEXT)`, function (error,result) {
+      });
+
   
   console.log("database initialized");
   
@@ -117,6 +124,8 @@ app.post("/api/db/createchannel",(req, res) => {
 
   const values = [question];
 
+  console.log(values);
+
   db.query(insertQuery, values, (err, result) => {
     if (err) {
       console.error('Error inserting user into the database: ' + err + insertQuery);
@@ -145,6 +154,50 @@ app.get("/api/db/channels", (req,res)=>{
     }
   });
 });
+
+
+app.post("/api/db/addmsg", (req,res)=>{
+
+  const {index,msg} = req.body;
+
+  const insertQuery = "INSERT INTO msgss (msg_index, msg) VALUES (?, ?)";
+
+  const values = [index,msg];
+
+  console.log(values);
+
+  db.query(insertQuery, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting msg into the database: ' + err + insertQuery);
+    } else {
+      console.log('Msg added to the database')
+    }
+  });
+})
+
+
+app.post("/api/db/msgs", (req,res)=>{
+  const {channel} = req.body;
+
+  const selectQuery = 'SELECT * FROM msgss WHERE index=?';
+
+  const values = [channel];
+
+  console.log(channel);
+
+  db.query(selectQuery, values, (err, results) => {
+    if (err) {
+      console.error('Error retrieving msgs from the database: ' + err);
+      res.status(500).json({ error: 'Error retrieving msgs' });
+    } else {
+      console.log('Retrieved msgs from the database');
+      console.log(JSON.parse(JSON.stringify(results)));
+      res.send(JSON.parse(JSON.stringify(results)));
+      
+    }
+  });
+
+})
 
 
 app.post("/api/db/channel", (req,res)=>{

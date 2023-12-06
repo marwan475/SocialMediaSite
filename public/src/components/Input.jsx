@@ -1,21 +1,30 @@
 
 import styled  from "styled-components";
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 
 
-export default function Input(){
+export default function Input({chan}){
 
-    const [msg, setmsg] = useState({
-        msg: "",
-    });
+    const [msgg, setmsg] = useState(undefined);
 
-    const handleSubmit = (event)=>{
-        alert(msg.msg);
+    const handleSubmit = async (event)=>{
+        event.preventDefault();
+
+        var msg = msgg;
+        var index = chan;
+        
+        const { data } = await axios.post('http://localhost:8080/api/db/addmsg',{
+            index,
+            msg,
+        });
+
+        
         
     };
 
     const handleChange = (event)=> {
-        setmsg({ ...msg,[event.target.name]:event.target.value })
+        setmsg(event.target.value );
     };
 
     return (
