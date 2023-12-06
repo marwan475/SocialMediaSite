@@ -123,6 +123,7 @@ const Container1 =styled.div`
         align-items: center;
         gap: 1rem;
         justify-content: center;
+        color: #A1A1A1;
         img {
             height: 2.5rem;
         }
