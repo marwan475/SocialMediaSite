@@ -4,7 +4,7 @@ import axios from "axios";
 import Input from "./Input";
 import Msg from "./Msg";
 
-export default function Channel({channel}){
+export default function Channel({channel, msgs}){
 
     const [chan, setchan] = useState(undefined);
 
@@ -26,7 +26,7 @@ export default function Channel({channel}){
             <div className="channel">
                 <h3>{chan}</h3>
             </div>
-            <Msg chan={channel}/>
+            <Msg chan={channel} msgs={msgs}/>
             <Input chan={channel}/>
         </Container3>
     );

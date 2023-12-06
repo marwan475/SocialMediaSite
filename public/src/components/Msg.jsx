@@ -19,6 +19,7 @@ export default function Msg({chan}){
 
     useEffect(()=>{
         getMsgs();
+        
     });
 
     return (
@@ -27,8 +28,16 @@ export default function Msg({chan}){
                 {
                     msgs.map((msg)=>{
                         return (
-                            <div className="msg">
-                                {msg.msg}
+                            msg.user === localStorage.getItem('user') ?
+                            <div className={"msgsent"}>
+                                <div className="content">
+                                    <p>{msg.msg}</p>
+                                </div>
+                            </div>:
+                            <div className="msgrec">
+                                <div className="content">
+                                    <p>{msg.msg}</p>
+                                </div>
                             </div>
                         );
                     })
@@ -40,4 +49,33 @@ export default function Msg({chan}){
 
 const Container5 =styled.div`
     height: 80%;
+    .msgs{
+        padding: 1rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        overflow: auto;
+        .msgsent{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .content {
+                max-width: 40%;
+                overflow-wrap: break-word;
+                font-size: 1.1rem;
+                background-color: white;
+            }
+        }
+        .msgrec{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            .content {
+                max-width: 40%;
+                overflow-wrap: break-word;
+                font-size: 1.1rem;
+                background-color: white;
+            }
+        }
+    }
 `;

@@ -184,15 +184,12 @@ app.post("/api/db/msgs", (req,res)=>{
 
   const values = [channel];
 
-  console.log(channel);
 
   db.query(selectQuery, values, (err, results) => {
     if (err) {
       console.error('Error retrieving msgs from the database: ' + err);
       res.status(500).json({ error: 'Error retrieving msgs' });
     } else {
-      console.log('Retrieved msgs from the database');
-      console.log(JSON.parse(JSON.stringify(results)));
       res.send(JSON.parse(JSON.stringify(results)));
       
     }
