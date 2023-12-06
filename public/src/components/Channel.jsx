@@ -34,6 +34,9 @@ export default function Channel({channel, msgs}){
 
 const Container3 =styled.div`
     padding-top: 1rem;
+    display: grid;
+    grid-template-rows: 10% 75% 15%;
+    overflow: hidden;
     .channel {
         display: flex;
         justify-content: center;

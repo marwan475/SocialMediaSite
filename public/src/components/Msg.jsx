@@ -31,12 +31,12 @@ export default function Msg({chan}){
                             msg.user === localStorage.getItem('user') ?
                             <div className={"msgsent"}>
                                 <div className="content">
-                                    <p>{msg.msg}</p>
+                                    <p>{msg.user}: {msg.msg}</p>
                                 </div>
                             </div>:
                             <div className="msgrec">
                                 <div className="content">
-                                    <p>{msg.msg}</p>
+                                    <p>{msg.user}: {msg.msg}</p>
                                 </div>
                             </div>
                         );
@@ -49,21 +49,30 @@ export default function Msg({chan}){
 
 const Container5 =styled.div`
     height: 80%;
+    overflow: auto;
     .msgs{
         padding: 1rem 2rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         overflow: auto;
+        
         .msgsent{
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            
             .content {
-                max-width: 40%;
                 overflow-wrap: break-word;
                 font-size: 1.1rem;
                 background-color: white;
+                min-height 5rem;
+                width: 30%;
+                cursor: pointer;
+                border-radius: 0.2rem;
+                padding: 0.4rem;
+                gap: 1rem;
+                align-items: center;
             }
         }
         .msgrec{
@@ -71,10 +80,17 @@ const Container5 =styled.div`
             align-items: center;
             justify-content: flex-start;
             .content {
-                max-width: 40%;
                 overflow-wrap: break-word;
                 font-size: 1.1rem;
                 background-color: white;
+                min-height 5rem;
+                width: 30%;
+                cursor: pointer;
+                border-radius: 0.2rem;
+                padding: 0.4rem;
+                gap: 1rem;
+                align-items: center;
+
             }
         }
     }
