@@ -7,5 +7,5 @@ authentication,
 authorization, 
 posting questions as a thread, 
 allows people to post replies to your thread,
-allows you to view other threads
+allows you to view other threads.
 by Marwan Mostafa
