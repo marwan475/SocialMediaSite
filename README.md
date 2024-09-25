@@ -29,4 +29,5 @@ Social Media site created using Node and React.
 - navigate to port 8080 /db/init to initialize database
 - navigate to landing page using web browesr
 
-
+## Video walkthrough
+- https://www.youtube.com/watch?v=Hj24Fm6TNQs&t=11s&ab_channel=marwanmostafa
