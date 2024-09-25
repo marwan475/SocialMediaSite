@@ -26,6 +26,7 @@ Social Media site created using Node and React.
 
 ## How to run
 - sudo docker-compose up
+- navigate to port 8080 /db/init to initialize database
 - navigate to landing page using web browesr
 
 
