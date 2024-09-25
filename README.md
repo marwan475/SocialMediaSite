@@ -1,11 +1,27 @@
-# FormWebsite
+# SocialMediaSite
 
-Website created using Node and React, 
-website consits of 
-account creation,
-authentication,
-authorization, 
-posting questions as a thread, 
-allows people to post replies to your thread,
-allows you to view other threads.
-by Marwan Mostafa
+Social Media site created using Node and React.
+
+## Technology Stack
+
+### Frontend
+- React
+- HTML
+- CSS
+
+### Backend
+- Node.js
+- MySQL
+
+## Environment
+- Docker
+
+## Features
+- account creation
+- account authorization
+- account authentication
+- real-time chatting for users in a thread room
+- thread room creation
+- scrollable list of all threads
+
+
