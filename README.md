@@ -13,7 +13,7 @@ Social Media site created using Node and React.
 - Node.js
 - MySQL
 
-## Environment
+### Environment
 - Docker
 
 ## Features
@@ -23,5 +23,9 @@ Social Media site created using Node and React.
 - real-time chatting for users in a thread room
 - thread room creation
 - scrollable list of all threads
+
+## How to run
+- sudo docker-compose up
+- navigate to landing page using web browesr
 
 
